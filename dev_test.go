@@ -30,7 +30,7 @@ func TestInsertPendaftaran(t *testing.T) {
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
 	aljurusan := "Sedang trand"
-	hasil:=module.InsertPendaftaran(kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	hasil:=module.InsertPendaftaran(module.MongoConn,kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	fmt.Println(hasil)
 }
 
@@ -39,7 +39,7 @@ func TestInsertDaftarCamaba(t *testing.T) {
 	nama := "Dito"
 	phone_number := "085725722483"
 	alamat := "Kota Bandung"
-	hasil:=module.InsertDaftarCamaba(ktp, nama, phone_number, alamat)
+	hasil:=module.InsertDaftarCamaba(module.MongoConn,ktp, nama, phone_number, alamat)
 	fmt.Println(hasil)
 }
 
@@ -48,7 +48,7 @@ func TestInsertDaftarSekolah(t *testing.T) {
 	nama := "SMA Negeri 1 Bandung"
 	phone_number := "085725722483"
 	alamat := "Kota Bandung"
-	hasil:=module.InsertDaftarSekolah(kodesklh, nama, phone_number, alamat)
+	hasil:=module.InsertDaftarSekolah(module.MongoConn,kodesklh, nama, phone_number, alamat)
 	fmt.Println(hasil)
 }
 
@@ -56,7 +56,7 @@ func TestInsertDaftarJurusan(t *testing.T) {
 	kodejurusan := "D3TI"
 	nama := "Teknik Informatika"
 	jenjang := "Diploma 3"
-	hasil:=module.InsertDaftarJurusan(kodejurusan, nama, jenjang)
+	hasil:=module.InsertDaftarJurusan(module.MongoConn,kodejurusan, nama, jenjang)
 	fmt.Println(hasil)
 }
 
@@ -64,25 +64,25 @@ func TestInsertDaftarJurusan(t *testing.T) {
 
 func TestGetPendaftaranFromKTP(t *testing.T) {
 	ktp := 320132321321
-	pendaftar:=module.GetPendaftaranFromKTP(ktp)
+	pendaftar:=module.GetPendaftaranFromKTP(ktp,module.MongoConn, "pendaftaran_maba")
 	fmt.Println(pendaftar)
 }
 
 func TestGetCamabaFromPhoneNumber(t *testing.T) {
 	phonenumber := "085725722483"
-	camaba:=module.GetCamabaFromPhoneNumber(phonenumber)
+	camaba:=module.GetCamabaFromPhoneNumber(phonenumber,module.MongoConn, "daftar_camaba")
 	fmt.Println(camaba)
 }
 
 func TestGetDaftarSekolahFromKDSekolah(t *testing.T) {
-	kdsekolah := 1
-	daftar_sekolah:=module.GetDaftarSekolahFromKDSekolah(kdsekolah)
+	kdsekolah := 4
+	daftar_sekolah:=module.GetDaftarSekolahFromKDSekolah(kdsekolah,module.MongoConn, "daftar_sekolah")
 	fmt.Println(daftar_sekolah)
 }
 
 func TestGetJurusanFromKDJurusan(t *testing.T) {
 	kdjurusan := "D3TI"
-	daftar_jurusan:=module.GetJurusanFromKDJurusan(kdjurusan)
+	daftar_jurusan:=module.GetJurusanFromKDJurusan(kdjurusan,module.MongoConn, "daftar_jurusan")
 	fmt.Println(daftar_jurusan)
 }
 
