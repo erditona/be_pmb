@@ -30,33 +30,33 @@ func TestInsertPendaftaran(t *testing.T) {
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
 	aljurusan := "Sedang trand"
-	hasil:=module.InsertPendaftaran(module.MongoConn,kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	hasil:=module.InsertPendaftaran(module.MongoConn,"pendaftaran_maba",kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	fmt.Println(hasil)
 }
 
 func TestInsertDaftarCamaba(t *testing.T) {
-	ktp := 232312312312
-	nama := "Dito"
+	ktp := 232312312123
+	nama := "Adam"
 	phone_number := "085725722483"
 	alamat := "Kota Bandung"
-	hasil:=module.InsertDaftarCamaba(module.MongoConn,ktp, nama, phone_number, alamat)
+	hasil:=module.InsertDaftarCamaba(module.MongoConn,"daftar_camaba", ktp, nama, phone_number, alamat)
 	fmt.Println(hasil)
 }
 
 func TestInsertDaftarSekolah(t *testing.T) {
-	kodesklh := 4
-	nama := "SMA Negeri 1 Bandung"
-	phone_number := "085725722483"
+	kodesklh := 2
+	nama := "SMA Negeri 8 Bandung"
+	phone_number := "085725720808"
 	alamat := "Kota Bandung"
-	hasil:=module.InsertDaftarSekolah(module.MongoConn,kodesklh, nama, phone_number, alamat)
+	hasil:=module.InsertDaftarSekolah(module.MongoConn,"daftar_sekolah",kodesklh, nama, phone_number, alamat)
 	fmt.Println(hasil)
 }
 
 func TestInsertDaftarJurusan(t *testing.T) {
-	kodejurusan := "D3TI"
+	kodejurusan := "D4TI"
 	nama := "Teknik Informatika"
-	jenjang := "Diploma 3"
-	hasil:=module.InsertDaftarJurusan(module.MongoConn,kodejurusan, nama, jenjang)
+	jenjang := "Diploma 4"
+	hasil:=module.InsertDaftarJurusan(module.MongoConn,"daftar_jurusan",kodejurusan, nama, jenjang)
 	fmt.Println(hasil)
 }
 

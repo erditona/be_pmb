@@ -33,7 +33,7 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 	return insertResult.InsertedID
 }
 
-func InsertPendaftaran(db *mongo.Database, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (InsertedID interface{}) {
+func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (InsertedID interface{}) {
 	var pendaftaran model.Pendaftaran
 	pendaftaran.KDPendaftar = kdpendaftar
 	pendaftaran.Biodata = biodata
@@ -43,33 +43,33 @@ func InsertPendaftaran(db *mongo.Database, kdpendaftar int, biodata model.Camaba
 	pendaftaran.AlUlbi = alulbi
 	pendaftaran.AlJurusan = aljurusan
 	pendaftaran.CreatedAt = primitive.NewDateTimeFromTime(time.Now().UTC())
-	return InsertOneDoc(db, "pendaftaran_maba", pendaftaran)
+	return InsertOneDoc(db, col, pendaftaran)
 }
 
-func InsertDaftarCamaba(db *mongo.Database,ktp int, nama string, phone_number string, alamat string) (InsertedID interface{}) {
+func InsertDaftarCamaba(db *mongo.Database,col string,ktp int, nama string, phone_number string, alamat string) (InsertedID interface{}) {
 	var daftarCamaba model.Camaba
 	daftarCamaba.Ktp = ktp
 	daftarCamaba.Nama = nama
 	daftarCamaba.Phone_number = phone_number
 	daftarCamaba.Address = alamat
-	return InsertOneDoc(db, "daftar_camaba", daftarCamaba)
+	return InsertOneDoc(db, col, daftarCamaba)
 }
 
-func InsertDaftarSekolah(db *mongo.Database,kodesklh int, nama string, phone_number string, alamat string) (InsertedID interface{}) {
+func InsertDaftarSekolah(db *mongo.Database,col string,kodesklh int, nama string, phone_number string, alamat string) (InsertedID interface{}) {
 	var daftarSekolah model.DaftarSekolah
 	daftarSekolah.KDSekolah = kodesklh
 	daftarSekolah.Nama = nama
 	daftarSekolah.Phone_number = phone_number
 	daftarSekolah.Address = alamat
-	return InsertOneDoc(db, "daftar_sekolah", daftarSekolah)
+	return InsertOneDoc(db, col, daftarSekolah)
 }
 
-func InsertDaftarJurusan(db *mongo.Database,kodejurusan string, nama string, jenjang string) (InsertedID interface{}) {
+func InsertDaftarJurusan(db *mongo.Database,col string,kodejurusan string, nama string, jenjang string) (InsertedID interface{}) {
 	var daftarJurusan model.Jurusan
 	daftarJurusan.KDJurusan = kodejurusan
 	daftarJurusan.Nama = nama
 	daftarJurusan.Jenjang = jenjang
-	return InsertOneDoc(db, "daftar_jurusan", daftarJurusan)
+	return InsertOneDoc(db, col, daftarJurusan)
 }
 
 // getfunction
@@ -99,7 +99,7 @@ func GetDaftarSekolahFromKDSekolah(kdsekolah int, db *mongo.Database, col string
 	Dfsekolah := db.Collection(col)
 	filter := bson.M{"kdsekolah": kdsekolah}
 	err := Dfsekolah.FindOne(context.TODO(), filter).Decode(&dfsekolah)
-	if err != nil {
+	if err != nil { 
 		fmt.Printf("getCamabaFromPhoneNumber: %v\n", err)
 	}
 	return dfsekolah
