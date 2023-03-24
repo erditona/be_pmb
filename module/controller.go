@@ -18,7 +18,7 @@ var MongoString string = os.Getenv("MONGOSTRING")
 
 var MongoInfo = atdb.DBInfo{
 	DBString: MongoString,
-	DBName:   "tes_db",
+	DBName:   "tes_db_pmb",
 }
 
 //connection
