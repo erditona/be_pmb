@@ -6,6 +6,7 @@ import (
 
 	"github.com/erditona/be_pmb/model"
 	"github.com/erditona/be_pmb/module"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // test Insert
@@ -108,4 +109,18 @@ func TestGetAllSekolah(t *testing.T) {
 func TestGetAllCamaba(t *testing.T) {
 	sekolah := module.GetAllCamaba(module.MongoConn, "daftar_camaba")
 	fmt.Println(sekolah)
+}
+
+//tesGetFromID
+func TestGetPendaftaranFromID(t *testing.T) {
+	id := "642632f1ba550201c9bc41ed"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	biodata, err := module.GetPendaftaranFromID(objectID, module.MongoConn, "pendaftaran_maba")
+	if err != nil {
+		t.Fatalf("error calling GetPresensiFromID: %v", err)
+	}
+	fmt.Println(biodata)
 }

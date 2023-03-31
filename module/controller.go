@@ -2,6 +2,7 @@ package module
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"time"
@@ -174,6 +175,20 @@ func GetAllCamaba(db *mongo.Database, col string) (camaba []model.Camaba) {
 		fmt.Println(err)
 	}
 	return camaba
+}
+
+//FuncGetFromID
+func GetPendaftaranFromID(_id primitive.ObjectID, db *mongo.Database, col string) (staf model.Pendaftaran, errs error) {
+	pendaftar := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := pendaftar.FindOne(context.TODO(), filter).Decode(&staf)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return staf, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return staf, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return staf, nil
 }
 
 
