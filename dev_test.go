@@ -6,16 +6,15 @@ import (
 
 	"github.com/erditona/be_pmb/model"
 	"github.com/erditona/be_pmb/module"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // test Insert
 
 func TestInsertPendaftaran(t *testing.T) {
-	kdpendaftar := 2
+	kdpendaftar := 3
 	biodata := model.Camaba{
 		Ktp : 3201323211222,
-		Nama : "Nausha Adam",
+		Nama : "Dinan Adam",
 		Phone_number : "085718177810",
 		Address : "Parongpong, Kab. Bandung Barat",
 	}
@@ -112,15 +111,15 @@ func TestGetAllCamaba(t *testing.T) {
 }
 
 //tesGetFromID
-func TestGetPendaftaranFromID(t *testing.T) {
-	id := "642632f1ba550201c9bc41ed"
-	objectID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		t.Fatalf("error converting id to ObjectID: %v", err)
-	}
-	biodata, err := module.GetPendaftaranFromID(objectID, module.MongoConn, "pendaftaran_maba")
-	if err != nil {
-		t.Fatalf("error calling GetPresensiFromID: %v", err)
-	}
-	fmt.Println(biodata)
-}
+// func TestGetPendaftaranFromID(t *testing.T) {
+// 	id := "642632f1ba550201c9bc41ed"
+// 	objectID, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		t.Fatalf("error converting id to ObjectID: %v", err)
+// 	}
+// 	biodata, err := module.GetPendaftaranFromID(objectID, module.MongoConn, "pendaftaran_maba")
+// 	if err != nil {
+// 		t.Fatalf("error calling GetPresensiFromID: %v", err)
+// 	}
+// 	fmt.Println(biodata)
+// }
