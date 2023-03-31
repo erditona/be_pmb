@@ -8,11 +8,13 @@ import (
 	"github.com/erditona/be_pmb/module"
 )
 
+// test Insert
+
 func TestInsertPendaftaran(t *testing.T) {
-	kdpendaftar := 1
+	kdpendaftar := 2
 	biodata := model.Camaba{
-		Ktp : 320132321321,
-		Nama : "Dito Adam",
+		Ktp : 3201323211222,
+		Nama : "Nausha Adam",
 		Phone_number : "085718177810",
 		Address : "Parongpong, Kab. Bandung Barat",
 	}
@@ -44,9 +46,9 @@ func TestInsertDaftarCamaba(t *testing.T) {
 }
 
 func TestInsertDaftarSekolah(t *testing.T) {
-	kodesklh := 2
-	nama := "SMA Negeri 8 Bandung"
-	phone_number := "085725720808"
+	kodesklh := 7
+	nama := "SMA Negeri 9 Bandung"
+	phone_number := "085725720202"
 	alamat := "Kota Bandung"
 	hasil:=module.InsertDaftarSekolah(module.MongoConn,"daftar_sekolah",kodesklh, nama, phone_number, alamat)
 	fmt.Println(hasil)
@@ -60,7 +62,7 @@ func TestInsertDaftarJurusan(t *testing.T) {
 	fmt.Println(hasil)
 }
 
-// test getFunction
+// test getFunctionBy
 
 func TestGetPendaftaranFromKTP(t *testing.T) {
 	ktp := 320132321321
@@ -86,5 +88,24 @@ func TestGetJurusanFromKDJurusan(t *testing.T) {
 	fmt.Println(daftar_jurusan)
 }
 
+//test getFunctionAll
 
+func TestGetAllPendaftaran(t *testing.T) {
+	data := module.GetAllPendaftaran(module.MongoConn, "pendaftaran_maba")
+	fmt.Println(data)
+}
 
+func TestGetAllJurusan(t *testing.T) {
+	jurusan := module.GetAllJurusan(module.MongoConn, "daftar_jurusan")
+	fmt.Println(jurusan)
+}
+
+func TestGetAllSekolah(t *testing.T) {
+	sekolah := module.GetAllSekolah(module.MongoConn, "daftar_sekolah")
+	fmt.Println(sekolah)
+}
+
+func TestGetAllCamaba(t *testing.T) {
+	sekolah := module.GetAllCamaba(module.MongoConn, "daftar_camaba")
+	fmt.Println(sekolah)
+}

@@ -115,6 +115,69 @@ func GetJurusanFromKDJurusan(kdjurusan string, db *mongo.Database, col string) (
 	return dfjurusan
 }
 
+//GetFunctionAll
+
+func GetAllPendaftaran(db *mongo.Database, col string) (pendaftaran []model.Pendaftaran) {
+	data_pendaftaran := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := data_pendaftaran.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &pendaftaran)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return pendaftaran
+}
+
+func GetAllJurusan(db *mongo.Database, col string) (jurusan []model.Jurusan) {
+	data_jurusan := db.Collection(col)
+	filter := bson.D{}
+	// var results []jurusan
+	cur, err := data_jurusan.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Printf("GetAllJurusan: %v\n", err)
+	}
+	err = cur.All(context.TODO(), &jurusan)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return jurusan
+}
+
+func GetAllSekolah(db *mongo.Database, col string) (sekolah []model.DaftarSekolah) {
+	daftar_sekolah := db.Collection(col)
+	filter := bson.D{}
+	// var results []DaftarSekolah
+	cur, err := daftar_sekolah.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Printf("GetAllSekolah: %v\n", err)
+	}
+	err = cur.All(context.TODO(), &sekolah)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return sekolah
+}
+
+func GetAllCamaba(db *mongo.Database, col string) (camaba []model.Camaba) {
+	daftar_camaba := db.Collection(col)
+	filter := bson.D{}
+	// var results []DaftarCamaba
+	cur, err := daftar_camaba.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Printf("GetAllCamaba: %v\n", err)
+	}
+	err = cur.All(context.TODO(), &camaba)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return camaba
+}
+
+
+
 
 
 
