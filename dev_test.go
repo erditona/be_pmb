@@ -112,7 +112,7 @@ func TestGetAllCamaba(t *testing.T) {
 }
 
 
-//GetAllFromID
+//GetAllFromId
 func TestGetPendaftaranFromID(t *testing.T) {
 	id := "642632f1ba550201c9bc41ed"
 	objectID, err := primitive.ObjectIDFromHex(id)
