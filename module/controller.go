@@ -178,7 +178,7 @@ func GetAllCamaba(db *mongo.Database, col string) (camaba []model.Camaba) {
 }
 
 
-//GetAllFromID
+//GetAllFromId
 func GetPendaftaranFromID(_id primitive.ObjectID, db *mongo.Database, col string) (staf model.Pendaftaran, errs error) {
 	pendaftar := db.Collection(col)
 	filter := bson.M{"_id": _id}
