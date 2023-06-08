@@ -113,6 +113,7 @@ func TestGetAllCamaba(t *testing.T) {
 
 
 //GetAllFromId
+//PendaftaranFromID
 func TestGetPendaftaranFromID(t *testing.T) {
 	id := "642632f1ba550201c9bc41ed"
 	objectID, err := primitive.ObjectIDFromHex(id)
@@ -120,6 +121,48 @@ func TestGetPendaftaranFromID(t *testing.T) {
 		t.Fatalf("error converting id to ObjectID: %v", err)
 	}
 	biodata, err := module.GetPendaftaranFromID(objectID, module.MongoConn, "pendaftaran_maba")
+	if err != nil {
+		t.Fatalf("error calling GetPresensiFromID: %v", err)
+	}
+	fmt.Println(biodata)
+}
+
+//JurusanFromID
+func TestGetJurusanFromID(t *testing.T) {
+	id := "642bf18142f046a5b82bcca0"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	biodata, err := module.GetJurusanFromID(objectID, module.MongoConn, "daftar_jurusan")
+	if err != nil {
+		t.Fatalf("error calling GetPresensiFromID: %v", err)
+	}
+	fmt.Println(biodata)
+}
+
+//SekolahFromID
+func TestGetSekolahFromID(t *testing.T) {
+	id := "648149fee1c66741118b6c92"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	biodata, err := module.GetSekolahFromID(objectID, module.MongoConn, "daftar_sekolah")
+	if err != nil {
+		t.Fatalf("error calling GetPresensiFromID: %v", err)
+	}
+	fmt.Println(biodata)
+}
+
+//CamabaFromID
+func TestGetCamabaFromID(t *testing.T) {
+	id := "642bf8e042f046a5b82bccbf"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	biodata, err := module.GetCamabaFromID(objectID, module.MongoConn, "daftar_camaba")
 	if err != nil {
 		t.Fatalf("error calling GetPresensiFromID: %v", err)
 	}
