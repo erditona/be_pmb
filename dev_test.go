@@ -233,3 +233,25 @@ func TestInsertJurusan(t *testing.T) {
 	}
 	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
 }
+
+//update-delete
+
+//Jurusan
+func TestDeleteJurusanByID(t *testing.T) {
+	id := "648bcd3e6a2b200a59c4aad4" // ID data yang ingin dihapus
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+
+	err = module.DeleteJurusanByID(objectID, module.MongoConn, "daftar_jurusan")
+	if err != nil {
+		t.Fatalf("error calling DeletePresensiByID: %v", err)
+	}
+
+	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetPresensiFromID
+	_, err = module.GetJurusanFromID(objectID, module.MongoConn, "daftar_jurusan")
+	if err == nil {
+		t.Fatalf("expected data to be deleted, but it still exists")
+	}
+}
