@@ -236,6 +236,46 @@ func TestInsertJurusan(t *testing.T) {
 
 //update-delete
 
+//Pendaftaran
+func TestDeletePendaftaranByID(t *testing.T) {
+	id := "64814992a8bfb03d29a6cb3b" // ID data yang ingin dihapus
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+
+	err = module.DeletePendaftaranByID(objectID, module.MongoConn, "pendaftaran_maba")
+	if err != nil {
+		t.Fatalf("error calling DeleteSekolahByID: %v", err)
+	}
+
+	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetPendaftaranFromID
+	_, err = module.GetPendaftaranFromID(objectID, module.MongoConn, "pendaftaran_maba")
+	if err == nil {
+		t.Fatalf("expected data to be deleted, but it still exists")
+	}
+}
+
+//Sekolah
+func TestDeleteSekolahByID(t *testing.T) {
+	id := "6482fe79fb7f825ba14da7fd" // ID data yang ingin dihapus
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+
+	err = module.DeleteSekolahByID(objectID, module.MongoConn, "daftar_sekolah")
+	if err != nil {
+		t.Fatalf("error calling DeleteSekolahByID: %v", err)
+	}
+
+	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetJurusanFromID
+	_, err = module.GetSekolahFromID(objectID, module.MongoConn, "daftar_sekolah")
+	if err == nil {
+		t.Fatalf("expected data to be deleted, but it still exists")
+	}
+}
+
 //Jurusan
 func TestDeleteJurusanByID(t *testing.T) {
 	id := "648bcd3e6a2b200a59c4aad4" // ID data yang ingin dihapus
@@ -246,10 +286,10 @@ func TestDeleteJurusanByID(t *testing.T) {
 
 	err = module.DeleteJurusanByID(objectID, module.MongoConn, "daftar_jurusan")
 	if err != nil {
-		t.Fatalf("error calling DeletePresensiByID: %v", err)
+		t.Fatalf("error calling DeleteJurusanByID: %v", err)
 	}
 
-	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetPresensiFromID
+	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetJurusanFromID
 	_, err = module.GetJurusanFromID(objectID, module.MongoConn, "daftar_jurusan")
 	if err == nil {
 		t.Fatalf("expected data to be deleted, but it still exists")

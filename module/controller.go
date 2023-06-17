@@ -301,6 +301,88 @@ func GetCamabaFromID(_id primitive.ObjectID, db *mongo.Database, col string) (st
 
 //Update-Delete
 
+//Pendaftaran
+func UpdatePendaftaran(db *mongo.Database, col string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
+	filter := bson.M{"_id": id}
+	update := bson.M{
+		"$set": bson.M{
+			"kdpendaftar": kdpendaftar,
+			"biodata":     biodata,
+			"asalsekolah": asalsekolah,
+			"jurusan":     jurusan,
+			"jalur":       jalur,
+			"alulbi":      alulbi,
+			"aljurusan":   aljurusan,
+			"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
+		},
+	}
+	result, err := db.Collection(col).UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		fmt.Printf("UpdatePendaftaran: %v\n", err)
+		return
+	}
+	if result.ModifiedCount == 0 {
+		err = errors.New("No data has been changed with the specified ID")
+		return
+	}
+	return nil
+}
+
+func DeletePendaftaranByID(_id primitive.ObjectID, db *mongo.Database, col string) error {
+	pendaftaran := db.Collection(col)
+	filter := bson.M{"_id": _id}
+
+	result, err := pendaftaran.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return fmt.Errorf("error deleting data for ID %s: %s", _id, err.Error())
+	}
+
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("data with ID %s not found", _id)
+	}
+
+	return nil
+}
+
+//Sekolah
+func UpdateSekolah(db *mongo.Database,col string, id primitive.ObjectID, kodesklh int, nama string, phone_number string, alamat string) (err error) {
+	filter := bson.M{"_id": id}
+	update := bson.M{
+		"$set": bson.M{
+			"kdsekolah":    kodesklh,
+			"nama":         nama,
+			"phone_number": phone_number,
+			"alamat":       alamat,
+		},
+	}
+	result, err := db.Collection(col).UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		fmt.Printf("UpdateSekolah: %v\n", err)
+		return
+	}
+	if result.ModifiedCount == 0 {
+		err = errors.New("No data has been changed with the specified ID")
+		return
+	}
+	return nil
+}
+
+func DeleteSekolahByID(_id primitive.ObjectID, db *mongo.Database, col string) error {
+	sekolah := db.Collection(col)
+	filter := bson.M{"_id": _id}
+
+	result, err := sekolah.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return fmt.Errorf("error deleting data for ID %s: %s", _id, err.Error())
+	}
+
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("data with ID %s not found", _id)
+	}
+
+	return nil
+}
+
 //Jurusan
 func UpdateJurusan(db *mongo.Database,col string,id primitive.ObjectID, kodejurusan string, nama string, jenjang string) (err error) {
 	filter := bson.M{"_id": id}
