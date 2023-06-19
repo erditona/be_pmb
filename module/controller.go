@@ -242,6 +242,21 @@ func GetAllCamaba(db *mongo.Database, col string) (camaba []model.Camaba) {
 
 
 //GetAllFromId
+//PendaftaranFromKDPendaftaran
+func GetPendaftaranFromKDPendaftar(kdpendaftar int, db *mongo.Database, col string) (staf model.Pendaftaran, errs error) {
+	pendaftar := db.Collection(col)
+	filter := bson.M{"kdpendaftar": kdpendaftar}
+	err := pendaftar.FindOne(context.TODO(), filter).Decode(&staf)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return staf, fmt.Errorf("no data found for KDPendaftar %d", kdpendaftar)
+		}
+		return staf, fmt.Errorf("error retrieving data for KDPendaftar %d: %s", kdpendaftar, err.Error())
+	}
+	return staf, nil
+}
+
+
 //PendaftaranFromId
 func GetPendaftaranFromID(_id primitive.ObjectID, db *mongo.Database, col string) (staf model.Pendaftaran, errs error) {
 	pendaftar := db.Collection(col)

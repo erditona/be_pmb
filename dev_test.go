@@ -1,12 +1,14 @@
 package pmb1214031
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 
 	"github.com/erditona/be_pmb/model"
 	"github.com/erditona/be_pmb/module"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // test Insert
@@ -113,6 +115,19 @@ func TestGetAllCamaba(t *testing.T) {
 
 
 //GetAllFromId
+//PendaftaranFromKDPendaftar
+func TestGetPendaftaranFromKDPendaftar(t *testing.T) {
+	kdpendaftar := 19062301
+	biodata, err := module.GetPendaftaranFromKDPendaftar(kdpendaftar, module.MongoConn, "pendaftaran_maba")
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			t.Fatalf("no data found for KDPendaftar %d", kdpendaftar)
+		}
+		t.Fatalf("error retrieving data for KDPendaftar %d: %v", kdpendaftar, err)
+	}
+	fmt.Println(biodata)
+}
+
 //PendaftaranFromID
 func TestGetPendaftaranFromID(t *testing.T) {
 	id := "642632f1ba550201c9bc41ed"
