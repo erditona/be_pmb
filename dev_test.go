@@ -342,5 +342,52 @@ func TestDeleteJurusanByID(t *testing.T) {
 	}
 }
 
+//Login-SignUp
+func TestInsertUser(t *testing.T) {
+	var doc model.User
+	doc.FirstName = "Dito"
+	doc.LastName = "Adam"
+	doc.Email = "dito@gmail.com"
+	doc.Password = "erditona123"
+	if doc.FirstName == "" || doc.LastName == "" || doc.Email == "" || doc.Password == "" {
+		t.Errorf("Data tidak boleh kosong")
+	} else {
+		insertedID, err := module.InsertUser(module.MongoConn, "data_user", doc)
+		if err != nil {
+			t.Errorf("Error inserting document: %v", err)
+			fmt.Println("Data tidak berhasil disimpan")
+		} else {
+			fmt.Println("Data berhasil disimpan dengan id :", insertedID.Hex())
+		}
+	}
+}
+
+func TestSignUp(t *testing.T) {
+	var doc model.User
+	doc.FirstName = "Dito"
+	doc.LastName = "Adam"
+	doc.Email = "dito123@gmail.com"
+	doc.Password = "erditona123"
+	doc.Confirmpassword = "erditona123"
+	insertedID, err := module.SignUp(module.MongoConn, "data_user", doc)
+	if err != nil {
+		t.Errorf("Error inserting document: %v", err)
+	} else {
+		fmt.Println("Data berhasil disimpan dengan id :", insertedID.Hex())
+	}
+}
+
+func TestLogIn(t *testing.T) {
+	var doc model.User
+	doc.Email = "dito123@gmail.com"
+	doc.Password = "erditona123"
+	user, err := module.LogIn(module.MongoConn, "data_user", doc)
+	if err != nil {
+		t.Errorf("Error getting document: %v", err)
+	} else {
+		fmt.Println("Welcome :", user)
+	}
+}
+
 
 
