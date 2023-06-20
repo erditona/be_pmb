@@ -389,5 +389,20 @@ func TestLogIn(t *testing.T) {
 	}
 }
 
+func TestGetAllUser(t *testing.T) {
+	data := module.GetAllUser(module.MongoConn, "data_user")
+	fmt.Println(data)
+}
 
-
+func TestGetUserFromID(t *testing.T) {
+	id := "6491ba24ce68c67034db0f64"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	biodata, err := module.GetUserFromID(objectID, module.MongoConn, "data_user")
+	if err != nil {
+		t.Fatalf("error calling GetUserFromID: %v", err)
+	}
+	fmt.Println(biodata)
+}

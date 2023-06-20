@@ -141,7 +141,7 @@ func InsertJurusan(db *mongo.Database,col string,kodejurusan string, nama string
 	return insertedID, nil
 }
 
-// getfunction
+// Getfunction
 
 func GetPendaftaranFromKTP(ktp int, db *mongo.Database, col string) (pendaftaran model.Pendaftaran) {
 	Pendaftaran := db.Collection(col)
@@ -519,6 +519,34 @@ func InsertUser(db *mongo.Database, col string, doc interface{}) (insertedID pri
 	insertedID = result.InsertedID.(primitive.ObjectID)
 	return insertedID, nil
 }
+
+func GetUserFromID(_id primitive.ObjectID, db *mongo.Database, col string) (data model.User, errs error) {
+	user := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := user.FindOne(context.TODO(), filter).Decode(&data)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return data, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return data, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return data, nil
+}
+
+func GetAllUser(db *mongo.Database, col string) (user []model.User) {
+	data_user := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := data_user.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLUser :", err)
+	}
+	err = cursor.All(context.TODO(), &user)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return user
+}
+
 
 
 
