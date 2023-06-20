@@ -46,7 +46,27 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 // 	pendaftaran.CreatedAt = primitive.NewDateTimeFromTime(time.Now().UTC())
 // 	return InsertOneDoc(db, col, pendaftaran)
 // }
-func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
+// func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
+// 	pendaftaran := bson.M{
+// 		"kdpendaftar": kdpendaftar,
+// 		"biodata":     biodata,
+// 		"asalsekolah": asalsekolah,
+// 		"jurusan":     jurusan,
+// 		"jalur":       jalur,
+// 		"alulbi":      alulbi,
+// 		"aljurusan":   aljurusan,
+// 		"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
+// 	}
+// 	result, err := db.Collection(col).InsertOne(context.Background(), pendaftaran)
+// 	if err != nil {
+// 		fmt.Printf("InsertPendaftaran: %v\n", err)
+// 		return
+// 	}
+// 	insertedID = result.InsertedID.(primitive.ObjectID)
+// 	return insertedID, nil
+// }
+
+func InsertPendaftaran(db *mongo.Database, colPendaftaran, colCamaba string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
 	pendaftaran := bson.M{
 		"kdpendaftar": kdpendaftar,
 		"biodata":     biodata,
@@ -57,12 +77,22 @@ func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata 
 		"aljurusan":   aljurusan,
 		"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
 	}
-	result, err := db.Collection(col).InsertOne(context.Background(), pendaftaran)
+	result, err := db.Collection(colPendaftaran).InsertOne(context.Background(), pendaftaran)
 	if err != nil {
 		fmt.Printf("InsertPendaftaran: %v\n", err)
 		return
 	}
 	insertedID = result.InsertedID.(primitive.ObjectID)
+
+	// Insert biodata into daftar_camaba collection
+	biodataResult, err := db.Collection(colCamaba).InsertOne(context.Background(), biodata)
+	if err != nil {
+		fmt.Printf("InsertBiodata: %v\n", err)
+		return
+	}
+	biodataInsertedID := biodataResult.InsertedID.(primitive.ObjectID)
+	fmt.Printf("Biodata berhasil disimpan dengan ID %s\n", biodataInsertedID.Hex())
+
 	return insertedID, nil
 }
 

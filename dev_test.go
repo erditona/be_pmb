@@ -186,41 +186,72 @@ func TestGetCamabaFromID(t *testing.T) {
 
 //InsertV2
 //Pendaftaran
+
 func TestInsertPendaftaran(t *testing.T) {
 	kdpendaftar := 3
 	biodata := model.Camaba{
-		Ktp : 3201323211222,
-		Nama : "TestInsert",
-		Phone_number : "085718177810",
-		Address : "Parongpong, Kab. Bandung Barat",
+		Ktp:           3201323211222,
+		Nama:          "TestInsertBaru",
+		Phone_number:  "085718177810",
+		Address:       "Parongpong, Kab. Bandung Barat",
 	}
 	asalsekolah := model.DaftarSekolah{
-		KDSekolah : 01,
-		Nama : "SMK Negeri 1 Cirebon",
-		Phone_number : "085718172053",
-		Address : "Jl.Perjuangan, Kota Cirebon",
+		KDSekolah:     01,
+		Nama:          "SMK Negeri 1 Cirebon",
+		Phone_number:  "085718172053",
+		Address:       "Jl.Perjuangan, Kota Cirebon",
 	}
 	jurusan := model.Jurusan{
-		KDJurusan : "D4TI",
-		Nama : "SMK Negeri 1 Cirebon",
-		Jenjang : "Diploma 4",
+		KDJurusan:     "D4TI",
+		Nama:          "SMK Negeri 1 Cirebon",
+		Jenjang:       "Diploma 4",
 	}
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
 	aljurusan := "Sedang trand"
-	insertedID, err := module.InsertPendaftaran(module.MongoConn,"pendaftaran_maba",kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", "daftar_camaba", kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	if err != nil {
 		t.Errorf("Error inserting data: %v", err)
 	}
-	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
+	fmt.Printf("Data berhasil disimpan dengan ID %s\n", insertedID.Hex())
 }
+
+// func TestInsertPendaftaran(t *testing.T) {
+// 	kdpendaftar := 3
+// 	biodata := model.Camaba{
+// 		Ktp : 3201323211222,
+// 		Nama : "TestInsert",
+// 		Phone_number : "085718177810",
+// 		Address : "Parongpong, Kab. Bandung Barat",
+// 	}
+// 	asalsekolah := model.DaftarSekolah{
+// 		KDSekolah : 01,
+// 		Nama : "SMK Negeri 1 Cirebon",
+// 		Phone_number : "085718172053",
+// 		Address : "Jl.Perjuangan, Kota Cirebon",
+// 	}
+// 	jurusan := model.Jurusan{
+// 		KDJurusan : "D4TI",
+// 		Nama : "SMK Negeri 1 Cirebon",
+// 		Jenjang : "Diploma 4",
+// 	}
+// 	jalur := "Rapot"
+// 	alulbi := "Universitas Internasional"
+// 	aljurusan := "Sedang trand"
+// 	insertedID, err := module.InsertPendaftaran(module.MongoConn,"pendaftaran_maba",kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+// 	if err != nil {
+// 		t.Errorf("Error inserting data: %v", err)
+// 	}
+// 	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
+// }
+
 //Camaba
 func TestInsertCamaba(t *testing.T) {
 	ktp := 232312312150
 	nama := "NamaTest"
 	phone_number := "085725722450"
 	alamat := "Kota Test"
-	insertedID, err := module.InsertSekolah(module.MongoConn,"daftar_sekolah",ktp, nama, phone_number, alamat)
+	insertedID, err := module.InsertSekolah(module.MongoConn,"daftar_camaba",ktp, nama, phone_number, alamat)
 	if err != nil {
 		t.Errorf("Error inserting data: %v", err)
 	}
