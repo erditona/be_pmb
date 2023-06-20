@@ -347,7 +347,7 @@ func GetCamabaFromID(_id primitive.ObjectID, db *mongo.Database, col string) (st
 //Update-Delete
 
 //Pendaftaran
-func UpdatePendaftaran(db *mongo.Database, col string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
+func UpdatePendaftaran(db *mongo.Database, col string, colCamaba string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
 	filter := bson.M{"_id": id}
 	update := bson.M{
 		"$set": bson.M{
