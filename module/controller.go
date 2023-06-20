@@ -46,27 +46,7 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 // 	pendaftaran.CreatedAt = primitive.NewDateTimeFromTime(time.Now().UTC())
 // 	return InsertOneDoc(db, col, pendaftaran)
 // }
-// func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
-// 	pendaftaran := bson.M{
-// 		"kdpendaftar": kdpendaftar,
-// 		"biodata":     biodata,
-// 		"asalsekolah": asalsekolah,
-// 		"jurusan":     jurusan,
-// 		"jalur":       jalur,
-// 		"alulbi":      alulbi,
-// 		"aljurusan":   aljurusan,
-// 		"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
-// 	}
-// 	result, err := db.Collection(col).InsertOne(context.Background(), pendaftaran)
-// 	if err != nil {
-// 		fmt.Printf("InsertPendaftaran: %v\n", err)
-// 		return
-// 	}
-// 	insertedID = result.InsertedID.(primitive.ObjectID)
-// 	return insertedID, nil
-// }
-
-func InsertPendaftaran(db *mongo.Database, colPendaftaran, colCamaba string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
+func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
 	pendaftaran := bson.M{
 		"kdpendaftar": kdpendaftar,
 		"biodata":     biodata,
@@ -77,22 +57,12 @@ func InsertPendaftaran(db *mongo.Database, colPendaftaran, colCamaba string, kdp
 		"aljurusan":   aljurusan,
 		"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
 	}
-	result, err := db.Collection(colPendaftaran).InsertOne(context.Background(), pendaftaran)
+	result, err := db.Collection(col).InsertOne(context.Background(), pendaftaran)
 	if err != nil {
 		fmt.Printf("InsertPendaftaran: %v\n", err)
 		return
 	}
 	insertedID = result.InsertedID.(primitive.ObjectID)
-
-	// Insert biodata into daftar_camaba collection
-	biodataResult, err := db.Collection(colCamaba).InsertOne(context.Background(), biodata)
-	if err != nil {
-		fmt.Printf("InsertBiodata: %v\n", err)
-		return
-	}
-	biodataInsertedID := biodataResult.InsertedID.(primitive.ObjectID)
-	fmt.Printf("Biodata berhasil disimpan dengan ID %s\n", biodataInsertedID.Hex())
-
 	return insertedID, nil
 }
 
@@ -347,7 +317,7 @@ func GetCamabaFromID(_id primitive.ObjectID, db *mongo.Database, col string) (st
 //Update-Delete
 
 //Pendaftaran
-func UpdatePendaftaran(db *mongo.Database, col string, colCamaba string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
+func UpdatePendaftaran(db *mongo.Database, col string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
 	filter := bson.M{"_id": id}
 	update := bson.M{
 		"$set": bson.M{

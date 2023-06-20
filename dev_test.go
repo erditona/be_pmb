@@ -191,7 +191,7 @@ func TestInsertPendaftaran(t *testing.T) {
 	kdpendaftar := 3
 	biodata := model.Camaba{
 		Ktp:           3201323211222,
-		Nama:          "TestInsertBaru",
+		Nama:          "TestInsertBaruBanget",
 		Phone_number:  "085718177810",
 		Address:       "Parongpong, Kab. Bandung Barat",
 	}
@@ -209,7 +209,7 @@ func TestInsertPendaftaran(t *testing.T) {
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
 	aljurusan := "Sedang trand"
-	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", "daftar_camaba", kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	if err != nil {
 		t.Errorf("Error inserting data: %v", err)
 	}
@@ -341,3 +341,6 @@ func TestDeleteJurusanByID(t *testing.T) {
 		t.Fatalf("expected data to be deleted, but it still exists")
 	}
 }
+
+
+
