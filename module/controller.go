@@ -323,6 +323,25 @@ func GetCamabaFromID(_id primitive.ObjectID, db *mongo.Database, col string) (st
 //Update-Delete
 
 //Pendaftaran
+func UpdateStatus(db *mongo.Database, col string, id primitive.ObjectID, statuspendaftar string) (err error) {
+	filter := bson.M{"_id": id}
+	update := bson.M{
+		"$set": bson.M{
+			"statuspendaftar": statuspendaftar,
+		},
+	}
+	result, err := db.Collection(col).UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		fmt.Printf("UpdatePendaftaran: %v\n", err)
+		return
+	}
+	if result.ModifiedCount == 0 {
+		err = errors.New("No data has been changed with the specified ID")
+		return
+	}
+	return nil
+}
+
 func UpdatePendaftaran(db *mongo.Database, col string, id primitive.ObjectID, kdpendaftar int, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (err error) {
 	filter := bson.M{"_id": id}
 	update := bson.M{
