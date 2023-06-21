@@ -189,6 +189,7 @@ func TestGetCamabaFromID(t *testing.T) {
 
 func TestInsertPendaftaran(t *testing.T) {
 	kdpendaftar := 3
+	statuspendaftar :="Terdaftar"
 	biodata := model.Camaba{
 		Ktp:           3201323211222,
 		Nama:          "TestInsertBaruBanget",
@@ -209,7 +210,7 @@ func TestInsertPendaftaran(t *testing.T) {
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
 	aljurusan := "Sedang trand"
-	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", kdpendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", kdpendaftar, statuspendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	if err != nil {
 		t.Errorf("Error inserting data: %v", err)
 	}

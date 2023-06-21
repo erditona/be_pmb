@@ -5,15 +5,16 @@ import (
 )
 
 type Pendaftaran struct {
-	ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	KDPendaftar  int                `bson:"kdpendaftar,omitempty" json:"kdpendaftar,omitempty"`
-	Biodata      Camaba             `bson:"biodata,omitempty" json:"biodata,omitempty"`
-	AsalSekolah  DaftarSekolah      `bson:"asalsekolah,omitempty" json:"asalsekolah,omitempty"`
-	Jurusan  	 Jurusan  	        `bson:"jurusan,omitempty" json:"jurusan,omitempty"`
-	Jalur  	     string  	        `bson:"jalur,omitempty" json:"jalur,omitempty"`
-	AlUlbi  	 string    	    	`bson:"alulbi,omitempty" json:"alulbi,omitempty"`
-	AlJurusan    string  	        `bson:"aljurusan,omitempty" json:"aljurusan,omitempty"`
-	CreatedAt     primitive.DateTime `bson:"created_at,omitempty" json:"created_at,omitempty"`
+	ID               primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	KDPendaftar  	 int                `bson:"kdpendaftar,omitempty" json:"kdpendaftar,omitempty"`
+	StatusPendaftar  string                `bson:"statuspendaftar,omitempty" json:"statuspendaftar,omitempty"`
+	Biodata      	 Camaba             `bson:"biodata,omitempty" json:"biodata,omitempty"`
+	AsalSekolah  	 DaftarSekolah      `bson:"asalsekolah,omitempty" json:"asalsekolah,omitempty"`
+	Jurusan  	 	 Jurusan  	        `bson:"jurusan,omitempty" json:"jurusan,omitempty"`
+	Jalur  	     	 string  	        `bson:"jalur,omitempty" json:"jalur,omitempty"`
+	AlUlbi  		 string    	    	`bson:"alulbi,omitempty" json:"alulbi,omitempty"`
+	AlJurusan        string  	        `bson:"aljurusan,omitempty" json:"aljurusan,omitempty"`
+	CreatedAt     	 primitive.DateTime `bson:"created_at,omitempty" json:"created_at,omitempty"`
 }
 
 type Camaba struct {
