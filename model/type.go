@@ -6,7 +6,7 @@ import (
 
 type Pendaftaran struct {
 	ID               primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	KDPendaftar  	 int64              `bson:"kdpendaftar,omitempty" json:"kdpendaftar,omitempty"`
+	KDPendaftar  	 int              `bson:"kdpendaftar,omitempty" json:"kdpendaftar,omitempty"`
 	StatusPendaftar  string             `bson:"statuspendaftar,omitempty" json:"statuspendaftar,omitempty"`
 	Biodata      	 Camaba             `bson:"biodata,omitempty" json:"biodata,omitempty"`
 	AsalSekolah  	 DaftarSekolah      `bson:"asalsekolah,omitempty" json:"asalsekolah,omitempty"`
