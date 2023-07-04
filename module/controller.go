@@ -571,3 +571,4 @@ func GetAllUser(db *mongo.Database, col string) (user []model.User) {
 
 
 
+// tests
