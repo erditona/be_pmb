@@ -508,12 +508,12 @@ func SignUp(db *mongo.Database, col string, insertedDoc model.User) (insertedID 
 	return InsertUser(db, col, insertedDoc)
 }
 
-func LogIn(db *mongo.Database, col string, insertedDoc model.User) (userName string, err error) {
+func LogIn(db *mongo.Database, col string, insertedDoc model.User) (email string, err error) {
 	if insertedDoc.Email == "" || insertedDoc.Password == "" {
-		return userName, fmt.Errorf("mohon untuk melengkapi data")
+		return email, fmt.Errorf("mohon untuk melengkapi data")
 	}
 	if err = checkmail.ValidateFormat(insertedDoc.Email); err != nil {
-		return userName, fmt.Errorf("email tidak valid")
+		return email, fmt.Errorf("email tidak valid")
 	}
 	existsDoc, err := GetUserFromEmail(insertedDoc.Email, db, col)
 	if err != nil {
@@ -521,13 +521,13 @@ func LogIn(db *mongo.Database, col string, insertedDoc model.User) (userName str
 	}
 	salt, err := hex.DecodeString(existsDoc.Salt)
 	if err != nil {
-		return userName, fmt.Errorf("kesalahan server")
+		return email, fmt.Errorf("kesalahan server")
 	}
 	hash := argon2.IDKey([]byte(insertedDoc.Password), salt, 1, 64*1024, 4, 32)
 	if hex.EncodeToString(hash) != existsDoc.Password {
-		return userName, fmt.Errorf("password salah")
+		return email, fmt.Errorf("password salah")
 	}
-	return existsDoc.FirstName + " " + existsDoc.LastName, nil
+	return existsDoc.Email, nil
 }
 
 func InsertUser(db *mongo.Database, col string, doc interface{}) (insertedID primitive.ObjectID, err error) {
