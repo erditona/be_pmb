@@ -50,3 +50,7 @@ type User struct {
 	Confirmpassword string         	   `bson:"confirmpass,omitempty" json:"confirmpass,omitempty"`
 	Salt 			string			   `bson:"salt,omitempty" json:"salt,omitempty"`
 }
+
+type Token struct {
+	Token_String string `bson:"tokenstring,omitempty" json:"tokenstring,omitempty"`
+}
