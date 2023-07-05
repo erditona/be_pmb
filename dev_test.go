@@ -382,10 +382,11 @@ func TestLogIn(t *testing.T) {
 	var doc model.User
 	doc.Email = "admin01@gmail.com"
 	doc.Password = "erdito123"
-	user, err := module.LogIn(module.MongoConn, "data_user", doc)
+	user,nama, err := module.LogIn(module.MongoConn, "data_user", doc)
 	if err != nil {
 		t.Errorf("Error getting document: %v", err)
 	} else {
+		fmt.Println("Welcome :", nama)
 		fmt.Println("Welcome :", user)
 	}
 }
