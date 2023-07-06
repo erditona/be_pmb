@@ -189,33 +189,39 @@ func TestGetCamabaFromID(t *testing.T) {
 
 func TestInsertPendaftaran(t *testing.T) {
 	kdpendaftar := 3
-	statuspendaftar :="Terdaftar"
+	statuspendaftar := "Terdaftar"
 	biodata := model.Camaba{
-		Ktp:           3201323211222,
-		Nama:          "TestInsertBaruBanget",
-		Phone_number:  "085718177810",
-		Address:       "Parongpong, Kab. Bandung Barat",
+		Ktp:          3201323211222,
+		Nama:         "TestInsertBaruBanget",
+		Phone_number: "085718177810",
+		Address:      "Parongpong, Kab. Bandung Barat",
 	}
 	asalsekolah := model.DaftarSekolah{
-		KDSekolah:     01,
-		Nama:          "SMK Negeri 1 Cirebon",
-		Phone_number:  "085718172053",
-		Address:       "Jl.Perjuangan, Kota Cirebon",
+		KDSekolah:    01,
+		Nama:         "SMK Negeri 1 Cirebon",
+		Phone_number: "085718172053",
+		Address:      "Jl.Perjuangan, Kota Cirebon",
 	}
 	jurusan := model.Jurusan{
-		KDJurusan:     "D4TI",
-		Nama:          "SMK Negeri 1 Cirebon",
-		Jenjang:       "Diploma 4",
+		KDJurusan: "D4TI",
+		Nama:      "SMK Negeri 1 Cirebon",
+		Jenjang:   "Diploma 4",
 	}
 	jalur := "Rapot"
 	alulbi := "Universitas Internasional"
-	aljurusan := "Sedang trand"
-	insertedID, err := module.InsertPendaftaran(module.MongoConn, "pendaftaran_maba", kdpendaftar, statuspendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
+	aljurusan := "Sedang trend"
+
+	insertedID, returnedKdpendaftar, returnedStatuspendaftar, err := module.InsertPendaftaran(module.MongoConn,"pendaftaran_maba", kdpendaftar, statuspendaftar, biodata, asalsekolah, jurusan, jalur, alulbi, aljurusan)
 	if err != nil {
 		t.Errorf("Error inserting data: %v", err)
 	}
-	fmt.Printf("Data berhasil disimpan dengan ID %s\n", insertedID.Hex())
+
+	// Menampilkan hasil
+	t.Logf("Inserted ID: %s", insertedID.Hex())
+	t.Logf("Returned kdpendaftar: %d", returnedKdpendaftar)
+	t.Logf("Returned statuspendaftar: %s", returnedStatuspendaftar)
 }
+
 
 // func TestInsertPendaftaran(t *testing.T) {
 // 	kdpendaftar := 3

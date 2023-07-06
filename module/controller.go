@@ -51,17 +51,17 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 // 	pendaftaran.CreatedAt = primitive.NewDateTimeFromTime(time.Now().UTC())
 // 	return InsertOneDoc(db, col, pendaftaran)
 // }
-func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int,statuspendaftar string, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, err error) {
+func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int, statuspendaftar string, biodata model.Camaba, asalsekolah model.DaftarSekolah, jurusan model.Jurusan, jalur string, alulbi string, aljurusan string) (insertedID primitive.ObjectID, returnedKdpendaftar int, returnedStatuspendaftar string, err error) {
 	pendaftaran := bson.M{
-		"kdpendaftar": kdpendaftar,
+		"kdpendaftar":     kdpendaftar,
 		"statuspendaftar": statuspendaftar,
-		"biodata":     biodata,
-		"asalsekolah": asalsekolah,
-		"jurusan":     jurusan,
-		"jalur":       jalur,
-		"alulbi":      alulbi,
-		"aljurusan":   aljurusan,
-		"created_at":  primitive.NewDateTimeFromTime(time.Now().UTC()),
+		"biodata":         biodata,
+		"asalsekolah":     asalsekolah,
+		"jurusan":         jurusan,
+		"jalur":           jalur,
+		"alulbi":          alulbi,
+		"aljurusan":       aljurusan,
+		"created_at":      primitive.NewDateTimeFromTime(time.Now().UTC()),
 	}
 	result, err := db.Collection(col).InsertOne(context.Background(), pendaftaran)
 	if err != nil {
@@ -69,8 +69,9 @@ func InsertPendaftaran(db *mongo.Database, col string, kdpendaftar int,statuspen
 		return
 	}
 	insertedID = result.InsertedID.(primitive.ObjectID)
-	return insertedID, nil
+	return insertedID, kdpendaftar, statuspendaftar, nil
 }
+
 
 func InsertDaftarCamaba(db *mongo.Database,col string,ktp int, nama string, phone_number string, alamat string) (InsertedID interface{}) {
 	var daftarCamaba model.Camaba
